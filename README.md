@@ -76,7 +76,7 @@ Before creating the Pod, add these RunPod Secrets:
 
 Reference the secrets through the Pod template environment variables. Do not put either key in the repository. If W&B is unavailable during a run, training continues and retains its local logs and checkpoints.
 
-Copy this project, without `.venv`, to `/workspace/qwen3tts-voiceclone`. If you do not copy `data/huggingface/mayank`, import the dataset on the Pod after setup.
+Copy this project, without `.venv` or any `data/` directory, to `/workspace/qwen3tts-voiceclone`. The voice dataset is intentionally excluded from Git. Import it from Hugging Face on the Pod before training.
 
 ```bash
 cd /workspace/qwen3tts-voiceclone
@@ -85,7 +85,7 @@ bash scripts/runpod_setup.sh
 
 The setup script prints and saves every long operation. You will see the official Qwen repository clone, package installation, FlashAttention installation, Qwen model download, GPU details, CUDA version, Torch version, and the Qwen Git commit. Its complete output is saved in `runs/setup-*/setup.log`.
 
-If needed, import the private dataset on the Pod:
+Import the private dataset on the Pod before training:
 
 ```bash
 qwen-voiceclone data import-hf \

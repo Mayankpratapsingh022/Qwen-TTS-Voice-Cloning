@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 data/raw/
+data/huggingface/
 data/processed/
 runs/
 artifacts/
