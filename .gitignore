@@ -9,6 +9,8 @@ data/huggingface/
 data/processed/
 runs/
 artifacts/
+InferenceOutput/*
+!InferenceOutput/README.md
 wandb/
 tensorboard/
 checkpoint-epoch-*/
@@ -21,3 +23,9 @@ checkpoint-epoch-*/
 *.wav
 *.mp3
 *.flac
+*.m4a
+!InferenceOutput/01_original_voice_sample.mp3
+!InferenceOutput/02_elevenlabs_voice_clone_sample.mp3
+!InferenceOutput/03_qwen_finetuned_model_inference_windmill.wav
+!InferenceOutput/04_qwen_finetuned_model_inference_ml_algorithm_visualizer.wav
+!InferenceOutput/05_qwen_finetuned_model_inference_word_embeddings.wav

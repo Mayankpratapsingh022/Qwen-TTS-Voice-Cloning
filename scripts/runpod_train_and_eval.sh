@@ -16,6 +16,18 @@ trap 'log "FAILED at line $LINENO. Outputs and logs remain in $RUN_DIR"' ERR
 test -f "$MANIFEST_ROOT/train.jsonl"
 test -f "$MANIFEST_ROOT/holdout.jsonl"
 test -f "$MANIFEST_ROOT/reference.txt"
+if [[ -z "${QVC_MODEL_ID:-}" ]]; then
+  SNAPSHOT_ROOT="${HF_HOME:-/workspace/.cache/huggingface}/hub/models--Qwen--Qwen3-TTS-12Hz-1.7B-Base/snapshots"
+  shopt -s nullglob
+  SNAPSHOTS=("$SNAPSHOT_ROOT"/*)
+  shopt -u nullglob
+  if [[ ${#SNAPSHOTS[@]} -ne 1 ]]; then
+    log "Expected one prefetched Qwen model snapshot under $SNAPSHOT_ROOT"
+    exit 1
+  fi
+  export QVC_MODEL_ID="${SNAPSHOTS[0]}"
+  log "Using local Qwen model snapshot: $QVC_MODEL_ID"
+fi
 qwen-voiceclone budget show
 log "Smoke test: stdout, GPU CSV, W&B metrics, and checkpoints will be live under runs/smoke"
 qwen-voiceclone train smoke --manifest "$MANIFEST_ROOT/train.jsonl" --output-dir "$RUN_DIR/smoke"

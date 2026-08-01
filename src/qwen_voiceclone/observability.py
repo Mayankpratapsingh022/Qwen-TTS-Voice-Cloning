@@ -39,7 +39,6 @@ class RunObserver:
         self._gpu_thread: threading.Thread | None = None
         self._gpu_csv: Any | None = None
         self._gpu_writer: Any | None = None
-        self._loss_step = 0
 
     def start(self) -> None:
         self._start_wandb()
@@ -79,8 +78,8 @@ class RunObserver:
             handle.write(line + "\n")
         metrics = parse_training_metrics(line)
         if metrics and self._wandb_run:
-            self._loss_step += 1
-            self._wandb_run.log({"train/loss": metrics["loss"], "train/epoch": metrics["epoch"], "train/step": metrics["step"]}, step=self._loss_step)
+            # Let W&B assign one shared monotonic step across loss, GPU, and event logs.
+            self._wandb_run.log({"train/loss": metrics["loss"], "train/epoch": metrics["epoch"], "train/step": metrics["step"]})
 
     def _start_wandb(self) -> None:
         if self.settings.wandb_mode == "disabled":

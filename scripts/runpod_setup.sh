@@ -23,6 +23,12 @@ test -w /workspace
 command -v nvidia-smi
 nvidia-smi
 python3 -c 'import torch; assert torch.cuda.is_available(), "CUDA is not available"; print("torch=", torch.__version__, "gpu=", torch.cuda.get_device_name(0))'
+if ! command -v sox >/dev/null 2>&1; then
+  log "Installing the system SoX package required by the audio stack"
+  apt-get update
+  DEBIAN_FRONTEND=noninteractive apt-get install -y sox libsox-fmt-all
+fi
+sox --version
 
 export PIP_PROGRESS_BAR=on
 if [[ ! -d "$QWEN_REPO_DIR/.git" ]]; then
@@ -42,6 +48,10 @@ source "$PROJECT_DIR/.venv/bin/activate"
 python -m pip install --upgrade pip
 python -m pip install -e "$QWEN_REPO_DIR"
 python -m pip install -e "$PROJECT_DIR[train,eval,dev]"
+if [[ "${HF_HUB_ENABLE_HF_TRANSFER:-0}" == "1" ]]; then
+  log "Installing hf_transfer because fast Hugging Face downloads are enabled"
+  python -m pip install -U hf_transfer
+fi
 log "Installing and checking FlashAttention with visible build/download output"
 HOST_MEMORY_KB="$(awk '/MemTotal/ {print $2}' /proc/meminfo)"
 if [[ "$HOST_MEMORY_KB" -lt 100663296 ]]; then
