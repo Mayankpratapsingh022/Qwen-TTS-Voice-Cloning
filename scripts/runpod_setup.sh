@@ -7,7 +7,12 @@ PROJECT_DIR="${PROJECT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 QWEN_REPO_DIR="${QVC_QWEN_REPO_DIR:-/workspace/Qwen3-TTS}"
 QWEN_GIT_REF="${QVC_QWEN_GIT_REF:-main}"
 LOG_DIR="${PROJECT_DIR}/runs/setup-$(date -u +%Y%m%dT%H%M%SZ)"
-mkdir -p "$LOG_DIR" /workspace/.cache/huggingface
+export HF_HOME=/workspace/.cache/huggingface
+export PIP_CACHE_DIR=/workspace/.cache/pip
+export TMPDIR=/workspace/.tmp
+export TMP="$TMPDIR"
+export TEMP="$TMPDIR"
+mkdir -p "$LOG_DIR" "$HF_HOME" "$PIP_CACHE_DIR" "$TMPDIR"
 exec > >(tee -a "$LOG_DIR/setup.log") 2>&1
 
 log() { printf '[setup %s] %s\n' "$(date -u +%H:%M:%S)" "$*"; }
@@ -19,7 +24,6 @@ command -v nvidia-smi
 nvidia-smi
 python3 -c 'import torch; assert torch.cuda.is_available(), "CUDA is not available"; print("torch=", torch.__version__, "gpu=", torch.cuda.get_device_name(0))'
 
-export HF_HOME=/workspace/.cache/huggingface
 export PIP_PROGRESS_BAR=on
 if [[ ! -d "$QWEN_REPO_DIR/.git" ]]; then
   log "Cloning official Qwen3-TTS with visible git progress"
