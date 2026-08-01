@@ -1,4 +1,5 @@
 .env
+.DS_Store
 .venv/
 .cache/
 __pycache__/
@@ -24,8 +25,15 @@ checkpoint-epoch-*/
 *.mp3
 *.flac
 *.m4a
+*.mp4
 !InferenceOutput/01_original_voice_sample.mp3
 !InferenceOutput/02_elevenlabs_voice_clone_sample.mp3
 !InferenceOutput/03_qwen_finetuned_model_inference_windmill.wav
 !InferenceOutput/04_qwen_finetuned_model_inference_ml_algorithm_visualizer.wav
 !InferenceOutput/05_qwen_finetuned_model_inference_word_embeddings.wav
+!InferenceOutput/videos/
+!InferenceOutput/videos/01_original_voice_reference.mp4
+!InferenceOutput/videos/02_elevenlabs_voice_clone.mp4
+!InferenceOutput/videos/03_qwen_finetuned_voice_clone.mp4
+!InferenceOutput/videos/04_qwen_finetuned_inference_ml_algorithm_visualizer.mp4
+!InferenceOutput/videos/05_qwen_finetuned_inference_word_embeddings.mp4

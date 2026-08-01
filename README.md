@@ -190,13 +190,15 @@ The fine-tuned checkpoint pronounced the holdout text more accurately, but it sc
 - the Qwen fine-tuned windmill output
 - two additional Qwen fine-tuned inference samples
 
-See [InferenceOutput/README.md](InferenceOutput/README.md) for filenames and context. Only these five audio files are versioned. The training dataset, checkpoints, holdout outputs, and all other generated audio remain ignored by Git.
+See [InferenceOutput/README.md](InferenceOutput/README.md) for filenames and context. Each sample now has an MP4 version with a white background, animated waveform, and a single source label. GitHub renders those videos directly in the repository interface. Only these five audio files and their five matching videos are versioned. The training dataset, checkpoints, holdout outputs, and all other generated audio remain ignored by Git.
 
-- [Original voice sample](InferenceOutput/01_original_voice_sample.mp3)
-- [ElevenLabs voice-clone sample](InferenceOutput/02_elevenlabs_voice_clone_sample.mp3)
-- [Qwen fine-tuned windmill inference](InferenceOutput/03_qwen_finetuned_model_inference_windmill.wav)
-- [Qwen fine-tuned ML Algorithm Visualizer inference](InferenceOutput/04_qwen_finetuned_model_inference_ml_algorithm_visualizer.wav)
-- [Qwen fine-tuned Word Embeddings inference](InferenceOutput/05_qwen_finetuned_model_inference_word_embeddings.wav)
+| Sample | Audio | GitHub-friendly video |
+| --- | --- | --- |
+| Original voice reference | [Audio](InferenceOutput/01_original_voice_sample.mp3) | [MP4](InferenceOutput/videos/01_original_voice_reference.mp4) |
+| ElevenLabs voice clone | [Audio](InferenceOutput/02_elevenlabs_voice_clone_sample.mp3) | [MP4](InferenceOutput/videos/02_elevenlabs_voice_clone.mp4) |
+| Qwen fine-tuned voice clone | [Audio](InferenceOutput/03_qwen_finetuned_model_inference_windmill.wav) | [MP4](InferenceOutput/videos/03_qwen_finetuned_voice_clone.mp4) |
+| Qwen fine-tuned inference: ML Algorithm Visualizer | [Audio](InferenceOutput/04_qwen_finetuned_model_inference_ml_algorithm_visualizer.wav) | [MP4](InferenceOutput/videos/04_qwen_finetuned_inference_ml_algorithm_visualizer.mp4) |
+| Qwen fine-tuned inference: Word Embeddings | [Audio](InferenceOutput/05_qwen_finetuned_model_inference_word_embeddings.wav) | [MP4](InferenceOutput/videos/05_qwen_finetuned_inference_word_embeddings.mp4) |
 
 ## Files created by a run
 
