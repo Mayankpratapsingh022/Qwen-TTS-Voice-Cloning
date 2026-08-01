@@ -1,8 +1,33 @@
 # Qwen TTS voice cloning
 
-Fine-tune Qwen3-TTS on an authorized voice, generate speech from the resulting checkpoint, and compare it with Qwen's zero-shot voice-cloning baseline. This is a standalone repository. It does not use, modify, or depend on `cosyvoice3-finetune`.
 
-The workflow is designed for a private dataset stored on Hugging Face and a GPU workspace with persistent storage. It keeps data, generated audio, checkpoints, and credentials out of Git.
+Fine-tune Qwen3-TTS on an authorized voice using approximately 1.2 hours of private audio, generate speech from the resulting checkpoint, and compare it with Qwen’s zero-shot voice-cloning baseline. This is a standalone repository.
+
+### To compare the voice-cloning results, listen to the same sentence spoken in three versions of my voice: the original voice recording (rec after the inference), an ElevenLabs voice-clone sample, and the Qwen fine-tuned model output. The additional Qwen samples show how the model performs on longer unseen text.
+
+
+https://github.com/user-attachments/assets/c9d81059-d175-47e1-9b7b-ee97424857ca
+
+
+
+https://github.com/user-attachments/assets/f086b903-a4a2-477a-b349-c5d4e338a6a1
+
+
+
+
+
+
+https://github.com/user-attachments/assets/eaf19a72-ab70-4f56-85f0-920f55b9e0e2
+
+
+
+
+
+
+https://github.com/user-attachments/assets/00323b08-3b5e-4962-bdc7-941b9a379c07
+
+
+
 
 ## Why fine-tune a voice model
 
@@ -36,6 +61,7 @@ There is a trade-off. Fine-tuning needs clean recordings, accurate transcripts, 
 - A persistent volume when using a cloud GPU. All project files should live under `/workspace` on RunPod.
 
 An RTX 5090 with 32 GB VRAM was sufficient for the included 1.7B experiment with batch size two. Larger GPUs reduce pressure or wall-clock time but do not improve the voice merely because they have more VRAM.
+(*you can rent GPU from cloud providers)
 
 ## Quick start
 
