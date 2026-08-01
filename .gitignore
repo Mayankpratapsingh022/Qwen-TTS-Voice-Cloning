@@ -1,5 +1,6 @@
 .env
 .venv/
+.cache/
 __pycache__/
 .pytest_cache/
 .ruff_cache/
@@ -8,6 +9,15 @@ data/huggingface/
 data/processed/
 runs/
 artifacts/
+wandb/
+tensorboard/
+checkpoint-epoch-*/
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.zip
 *.wav
 *.mp3
 *.flac
