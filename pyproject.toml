@@ -12,6 +12,7 @@ dependencies = [
   "rich>=13.7",
   "python-dotenv>=1.0",
   "huggingface-hub>=0.24",
+  "hf_transfer>=0.1.9",
   "soundfile>=0.12",
 ]
 
