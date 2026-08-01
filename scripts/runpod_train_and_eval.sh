@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-PROJECT_DIR="${PROJECT_DIR:-/workspace/qwen3tts-voiceclone}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="${PROJECT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 MANIFEST_ROOT="${MANIFEST_ROOT:-$PROJECT_DIR/data/processed/mayank}"
 RUN_DIR="${RUN_DIR:-$PROJECT_DIR/runs/one-epoch-$(date -u +%Y%m%dT%H%M%SZ)}"
 cd "$PROJECT_DIR"

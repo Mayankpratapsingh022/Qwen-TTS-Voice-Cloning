@@ -2,7 +2,8 @@
 set -Eeuo pipefail
 
 # Run this once inside a RunPod PyTorch pod.  Everything durable lives in /workspace.
-PROJECT_DIR="${PROJECT_DIR:-/workspace/qwen3tts-voiceclone}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="${PROJECT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 QWEN_REPO_DIR="${QVC_QWEN_REPO_DIR:-/workspace/Qwen3-TTS}"
 QWEN_GIT_REF="${QVC_QWEN_GIT_REF:-main}"
 LOG_DIR="${PROJECT_DIR}/runs/setup-$(date -u +%Y%m%dT%H%M%SZ)"
@@ -38,6 +39,11 @@ python -m pip install --upgrade pip
 python -m pip install -e "$QWEN_REPO_DIR"
 python -m pip install -e "$PROJECT_DIR[train,eval,dev]"
 log "Installing and checking FlashAttention with visible build/download output"
+HOST_MEMORY_KB="$(awk '/MemTotal/ {print $2}' /proc/meminfo)"
+if [[ "$HOST_MEMORY_KB" -lt 100663296 ]]; then
+  export MAX_JOBS=4
+  log "Host RAM is below 96GB. Limiting FlashAttention build to MAX_JOBS=$MAX_JOBS"
+fi
 python -m pip install -U flash-attn --no-build-isolation
 python -c 'import flash_attn, torch; assert torch.cuda.is_available(); print("flash_attn=", flash_attn.__version__, "torch_cuda=", torch.version.cuda)'
 
